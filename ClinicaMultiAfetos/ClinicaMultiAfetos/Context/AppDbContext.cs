@@ -9,8 +9,12 @@ namespace ClinicaMultiAfetos.Context
         {
 
         }
+        public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<DocumentoPaciente> DocumentosPaciente { get; set; }
+        public DbSet<PlanoPaciente> PlanosPaciente { get; set; }
+        public DbSet<ReciboPaciente> RecibosPaciente { get; set; }
 
-        DbSet<Paciente> Pacientes { get; set; }
-        DbSet<Documento> Documentos { get; set; }
+        public DbSet<DocumentoClinica> DocumentosClinica { get; set; }
+
     }
 }

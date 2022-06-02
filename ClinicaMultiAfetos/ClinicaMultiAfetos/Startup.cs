@@ -1,4 +1,6 @@
 ﻿using ClinicaMultiAfetos.Context;
+using ClinicaMultiAfetos.Repositories;
+using ClinicaMultiAfetos.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -19,6 +21,12 @@ public class Startup
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddTransient<IDocumentoClinicaRepository, DocumentoClinicaRepository>();
+        services.AddTransient<IPacienteRepository, PacienteRepository>();
+        services.AddTransient<IDocumentoPacienteRepository, DocumentoPacienteRepository>();
+        services.AddTransient<IPlanoPacienteRepository, PlanoPacienteRepository>();
+        services.AddTransient<IReciboPacienteRepository, ReciboPacienteRepository>();
 
         services.AddControllersWithViews();
     }
