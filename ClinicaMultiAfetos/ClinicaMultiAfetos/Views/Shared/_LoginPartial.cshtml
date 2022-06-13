@@ -7,11 +7,18 @@
     <form asp-area="" asp-controller="Account" asp-action="Logout" id="logoutForm"
       method="post" class="navbar-left">
         <ul class="nav navbar-nav flex-grow-1 navbar-left">
-            
-                <button type="submit" style="width:auto" class="nav-link text-dark btn btn-link " >
-                    Logout : @User.Identity.Name &nbsp;
-                </button>
-            
+
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register" style="color:white">&nbsp;Novo Usuário&nbsp;&nbsp;&nbsp; </a>
+            }
+
+            <button type="submit" style="width:auto" class="nav-link text-dark btn btn-link ">
+                Logout : @User.Identity.Name &nbsp;
+            </button>
+
+
+
         </ul>
     </form>
 }
@@ -19,7 +26,8 @@ else
 {
     <ul class="nav navbar-nav flex-grow-1 navbar-left">
         <a class="nav-link text-dark" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@string.Format("{0}{1}",Context.Request.Path, Context.Request.QueryString)" style="color:white">&nbsp; Log in&nbsp; </a>
-        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register" style="color:white">&nbsp;Registro&nbsp;&nbsp;&nbsp; </a>
+
+
     </ul>
 
 }

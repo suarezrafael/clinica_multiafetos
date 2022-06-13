@@ -1,0 +1,104 @@
+﻿@model ClinicaMultiAfetos.Models.Paciente
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+
+<h4>Paciente</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PacienteId" />
+            <div class="form-group">
+                <label asp-for="NomeCompleto" class="control-label"></label>
+                <input asp-for="NomeCompleto" class="form-control" />
+                <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataNascimento" class="control-label"></label>
+                <input asp-for="DataNascimento" class="form-control" />
+                <span asp-validation-for="DataNascimento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cid" class="control-label"></label>
+                <input asp-for="Cid" class="form-control" />
+                <span asp-validation-for="Cid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Plano" class="control-label"></label>
+                <input asp-for="Plano" class="form-control" />
+                <span asp-validation-for="Plano" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QueixaInicial" class="control-label"></label>
+                <input asp-for="QueixaInicial" class="form-control" />
+                <span asp-validation-for="QueixaInicial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Responsavel" class="control-label"></label>
+                <input asp-for="Responsavel" class="form-control" />
+                <span asp-validation-for="Responsavel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaiMae" class="control-label"></label>
+                <input asp-for="PaiMae" class="form-control" />
+                <span asp-validation-for="PaiMae" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cpf" class="control-label"></label>
+                <input asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rg" class="control-label"></label>
+                <input asp-for="Rg" class="form-control" />
+                <span asp-validation-for="Rg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TelefoneContato" class="control-label"></label>
+                <input asp-for="TelefoneContato" class="form-control" />
+                <span asp-validation-for="TelefoneContato" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Endereco" class="control-label"></label>
+                <input asp-for="Endereco" class="form-control" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnderecoNumero" class="control-label"></label>
+                <input asp-for="EnderecoNumero" class="form-control" />
+                <span asp-validation-for="EnderecoNumero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnderecoCidade" class="control-label"></label>
+                <input asp-for="EnderecoCidade" class="form-control" />
+                <span asp-validation-for="EnderecoCidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnderecoCep" class="control-label"></label>
+                <input asp-for="EnderecoCep" class="form-control" />
+                <span asp-validation-for="EnderecoCep" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnderecoUf" class="control-label"></label>
+                <input asp-for="EnderecoUf" class="form-control" />
+                <span asp-validation-for="EnderecoUf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para Lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

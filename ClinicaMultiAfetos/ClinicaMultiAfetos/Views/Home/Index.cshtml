@@ -2,8 +2,15 @@
     ViewData["Title"] = "Início";
 }
 
-    <partial name="_Carousel" />
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Agenda"><h5 class="display-4">Agenda</h5></a>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Pacientes"><h5 class="display-4">Pacientes</h5></a>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Documentos"><h5 class="display-4">Documentos</h5></a>        
+<partial name="_Carousel" />
+
+@if (User.IsInRole("Admin"))
+{
+    <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminPaciente" asp-action="Index"><h5 class="display-4">Pacientes</h5></a>
+
+@*    <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminAgenda" asp-action="Index"><h5 class="display-4">Agenda</h5></a>    
+    <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminDocumentosClinica" asp-action="Index"><h5 class="display-4">Documentos</h5></a>
+*@}
+
+
 
