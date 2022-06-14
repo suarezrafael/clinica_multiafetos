@@ -1,11 +1,22 @@
-﻿@model IEnumerable<ClinicaMultiAfetos.Models.Paciente>
-
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ClinicaMultiAfetos.Models.Paciente>
 @{
     ViewData["Title"] = "Pacientes";
 }
 
 <h1>Pacientes</h1>
 
+<form method="get" class="form-inline">
+    
+    <input name="filter" class="form-control" placeholder="filtro"
+           value="@Model.RouteValue["Filter"]" />
+
+    <button type="submit" class="btn btn-info">Procurar</button>
+</form>
+
+Total de Pacientes : @Model.TotalRecordCount
+<div>
+   <vc:pager paging-list="@Model"></vc:pager>
+</div>
 <p>
     <a asp-action="Create">Novo Paciente</a>
 </p>
@@ -15,6 +26,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.NomeCompleto)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </th>
+@*            <th>
+                @Html.DisplayNameFor(model => model.Rg)
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.DataNascimento)
             </th>
@@ -34,15 +51,9 @@
                 @Html.DisplayNameFor(model => model.PaiMae)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cpf)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rg)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.TelefoneContato)
             </th>
-            <th>
+@*            <th>
                 @Html.DisplayNameFor(model => model.Endereco)
             </th>
             <th>
@@ -56,64 +67,68 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EnderecoUf)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeCompleto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataNascimento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Plano)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QueixaInicial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Responsavel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaiMae)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cpf)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rg)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TelefoneContato)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Endereco)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnderecoNumero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnderecoCidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnderecoCep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnderecoUf)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PacienteId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.PacienteId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.PacienteId">Excluir</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cpf)
+                </td>
+
+@*                <td>
+                    @Html.DisplayFor(modelItem => item.Rg)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataNascimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plano)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QueixaInicial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Responsavel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaiMae)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelefoneContato)
+                </td>
+ @*               <td>
+                    @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnderecoNumero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnderecoCidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnderecoCep)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnderecoUf)
+                </td>
+                *@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PacienteId">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.PacienteId">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PacienteId">Excluir</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

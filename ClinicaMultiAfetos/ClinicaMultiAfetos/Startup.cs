@@ -4,7 +4,7 @@ using ClinicaMultiAfetos.Repositories.Interfaces;
 using ClinicaMultiAfetos.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using ReflectionIT.Mvc.Paging;
 
 namespace ClinicaMultiAfetos;
 
@@ -48,6 +48,11 @@ public class Startup
 
         services.AddControllersWithViews();
 
+        services.AddPaging(options =>
+        {
+            options.ViewName = "Bootstrap4";
+            options.PageParameterName = "pageindex";
+        });
         //services.AddMemoryCache();
 
         services.AddSession(options =>

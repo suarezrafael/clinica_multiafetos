@@ -7,10 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClinicaMultiAfetos.Context;
 using ClinicaMultiAfetos.Models;
+using Microsoft.AspNetCore.Authorization;
+using ReflectionIT.Mvc.Paging;
 
 namespace ClinicaMultiAfetos.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles ="Admin")]
     public class AdminPacienteController : Controller
     {
         private readonly AppDbContext _context;
@@ -21,9 +24,25 @@ namespace ClinicaMultiAfetos.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminPaciente
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //      return View(await _context.Pacientes.ToListAsync());
+        //}
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "NomeCompleto")
         {
-              return View(await _context.Pacientes.ToListAsync());
+
+            var resultado = _context.Pacientes.AsNoTracking()
+                                            .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                resultado = resultado.Where(p => p.NomeCompleto.Contains(filter));
+            }
+
+            var model = await PagingList.CreateAsync(resultado, 3, pageindex, sort, "NomeCompleto");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+
+            return View(model);
         }
 
         // GET: Admin/AdminPaciente/Details/5
