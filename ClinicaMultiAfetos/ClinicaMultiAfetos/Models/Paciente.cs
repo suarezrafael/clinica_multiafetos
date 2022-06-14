@@ -14,6 +14,7 @@ namespace ClinicaMultiAfetos.Models
         public string NomeCompleto { get; set; }
 
         [Required(ErrorMessage = "Campo Data de nascimento é obrigatório.")]
+        
         public DateTime DataNascimento { get; set; }
 
         [StringLength(10, ErrorMessage = "O tamanho máximo é 10 caracteres.")]

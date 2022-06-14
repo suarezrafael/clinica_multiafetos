@@ -3,23 +3,20 @@
     ViewData["Title"] = "Pacientes";
 }
 
-<h1>Pacientes</h1>
+<h3>Pacientes</h3>
 
 <form method="get" class="form-inline">
-    
+
     <input name="filter" class="form-control" placeholder="filtro"
            value="@Model.RouteValue["Filter"]" />
 
     <button type="submit" class="btn btn-info">Procurar</button>
 </form>
 
-Total de Pacientes : @Model.TotalRecordCount
-<div>
-   <vc:pager paging-list="@Model"></vc:pager>
-</div>
 <p>
     <a asp-action="Create">Novo Paciente</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -29,21 +26,21 @@ Total de Pacientes : @Model.TotalRecordCount
             <th>
                 @Html.DisplayNameFor(model => model.Cpf)
             </th>
-@*            <th>
-                @Html.DisplayNameFor(model => model.Rg)
+            @*            <th>
+            @Html.DisplayNameFor(model => model.Rg)
             </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.DataNascimento)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cid)
+            @*<th>
+            @Html.DisplayNameFor(model => model.Cid)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Plano)
+            @Html.DisplayNameFor(model => model.Plano)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QueixaInicial)
-            </th>
+            @Html.DisplayNameFor(model => model.QueixaInicial)
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Responsavel)
             </th>
@@ -53,20 +50,20 @@ Total de Pacientes : @Model.TotalRecordCount
             <th>
                 @Html.DisplayNameFor(model => model.TelefoneContato)
             </th>
-@*            <th>
-                @Html.DisplayNameFor(model => model.Endereco)
+            @*            <th>
+            @Html.DisplayNameFor(model => model.Endereco)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnderecoNumero)
+            @Html.DisplayNameFor(model => model.EnderecoNumero)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnderecoCidade)
+            @Html.DisplayNameFor(model => model.EnderecoCidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnderecoCep)
+            @Html.DisplayNameFor(model => model.EnderecoCep)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnderecoUf)
+            @Html.DisplayNameFor(model => model.EnderecoUf)
             </th>*@
             <th></th>
         </tr>
@@ -82,21 +79,21 @@ Total de Pacientes : @Model.TotalRecordCount
                     @Html.DisplayFor(modelItem => item.Cpf)
                 </td>
 
-@*                <td>
-                    @Html.DisplayFor(modelItem => item.Rg)
-                </td>*@
+                @*                <td>
+            @Html.DisplayFor(modelItem => item.Rg)
+            </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.DataNascimento)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Plano)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QueixaInicial)
-                </td>
+                @* <td>
+            @Html.DisplayFor(modelItem => item.Cid)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Plano)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.QueixaInicial)
+            </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Responsavel)
                 </td>
@@ -107,28 +104,34 @@ Total de Pacientes : @Model.TotalRecordCount
                 <td>
                     @Html.DisplayFor(modelItem => item.TelefoneContato)
                 </td>
- @*               <td>
-                    @Html.DisplayFor(modelItem => item.Endereco)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnderecoNumero)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnderecoCidade)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnderecoCep)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnderecoUf)
-                </td>
-                *@
+                @*               <td>
+            @Html.DisplayFor(modelItem => item.Endereco)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.EnderecoNumero)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.EnderecoCidade)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.EnderecoCep)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.EnderecoUf)
+            </td>
+            *@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.PacienteId">Editar</a> |
                     <a asp-action="Details" asp-route-id="@item.PacienteId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.PacienteId">Excluir</a>
+                    <a asp-action="Delete" asp-route-id="@item.PacienteId">Excluir</a> |
+                    <a asp-action="PacienteDocumentos" asp-route-id="@item.PacienteId">Doctos.</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+Total de Pacientes : @Model.TotalRecordCount
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>

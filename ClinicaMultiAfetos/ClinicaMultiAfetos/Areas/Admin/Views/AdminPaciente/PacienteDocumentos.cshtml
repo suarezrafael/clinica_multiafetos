@@ -1,0 +1,38 @@
+﻿@model ClinicaMultiAfetos.ViewModels.PacienteViewModel
+
+@{
+    ViewData["Title"] = "Documentos do Paciente";
+    decimal totalDocumentos = 0;
+}
+
+<h1>DOCUMENTOS do Paciente</h1>
+<hr />
+
+<h3>Código        :  @Html.DisplayFor(model => @Model.Paciente.PacienteId)</h3>
+<h3>Nome Completo :  @Html.DisplayFor(model => @Model.Paciente.NomeCompleto)</h3>
+<h3>Data Nasc.    :  @Html.DisplayFor(model => @Model.Paciente.DataNascimento)</h3>
+
+<table class="table">
+    @foreach (var item in @Model.Paciente.DocumentosPaciente)
+    {
+        totalDocumentos += 1;
+        <tr>
+            <td align="right">
+                <h3>@Html.DisplayFor(modelItem => item.NomeArquivo)</h3>
+            </td>
+            <td align="right">
+                <img src="@item.DocumentoUrl" class="img-fluid" height="100" width="100">
+            </td>
+            
+            
+        </tr>
+    }
+    <tr>
+            <td colspan="2">&nbsp;</td>
+            <td align="right">
+                <h3>Total Documentos : @string.Format("{0,10}", @totalDocumentos)</h3>
+            </td>
+    </tr>
+</table>
+<a asp-action="Index" class="btn btn-outline-info">Retornar</a>
+

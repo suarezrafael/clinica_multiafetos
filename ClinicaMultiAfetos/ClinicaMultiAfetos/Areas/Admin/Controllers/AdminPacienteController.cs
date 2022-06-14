@@ -9,6 +9,7 @@ using ClinicaMultiAfetos.Context;
 using ClinicaMultiAfetos.Models;
 using Microsoft.AspNetCore.Authorization;
 using ReflectionIT.Mvc.Paging;
+using ClinicaMultiAfetos.ViewModels;
 
 namespace ClinicaMultiAfetos.Areas.Admin.Controllers
 {
@@ -23,11 +24,28 @@ namespace ClinicaMultiAfetos.Areas.Admin.Controllers
             _context = context;
         }
 
+        public IActionResult PacienteDocumentos(int? id)
+        {
+            var paciente = _context.Pacientes
+                         .Include(pd => pd.DocumentosPaciente)
+                   
+                         .FirstOrDefault(p => p.PacienteId == id);
+
+            if (paciente == null)
+            {
+                Response.StatusCode = 404;
+                return View("PedidoNotFound", id.Value);
+            }
+
+            PacienteViewModel pacienteDocumentos = new PacienteViewModel()
+            {
+                Paciente = paciente,
+                DocumentosPaciente = paciente.DocumentosPaciente
+            };
+            return View(pacienteDocumentos);
+        }
+
         // GET: Admin/AdminPaciente
-        //public async Task<IActionResult> Index()
-        //{
-        //      return View(await _context.Pacientes.ToListAsync());
-        //}
         public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "NomeCompleto")
         {
 
