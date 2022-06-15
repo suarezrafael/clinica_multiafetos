@@ -7,6 +7,7 @@
 @if (User.IsInRole("Admin"))
 {
     <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminPaciente" asp-action="Index"><h5 class="display-4">Pacientes</h5></a>
+    <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminDocumentoClinica" asp-action="Index"><h5 class="display-4">Documentos Clínica</h5></a>
 
 @*    <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminAgenda" asp-action="Index"><h5 class="display-4">Agenda</h5></a>    
     <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminDocumentosClinica" asp-action="Index"><h5 class="display-4">Documentos</h5></a>
