@@ -1,4 +1,5 @@
 ﻿using ClinicaMultiAfetos.Context;
+using ClinicaMultiAfetos.Models;
 using ClinicaMultiAfetos.Repositories;
 using ClinicaMultiAfetos.Repositories.Interfaces;
 using ClinicaMultiAfetos.Services;
@@ -27,6 +28,10 @@ public class Startup
         services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
+
+        //services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Home/AccessDenied");
+
+        services.Configure<ConfigurationDocumentosClinica>(Configuration.GetSection("ConfigurationDocumentosClinica"));
 
         services.AddTransient<IDocumentoClinicaRepository, DocumentoClinicaRepository>();
         services.AddTransient<IPacienteRepository, PacienteRepository>();

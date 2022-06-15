@@ -24,22 +24,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
                         </li>
 
-                        
 
-                        @if (User.IsInRole("Admin"))
-                        {
+
+                            @if (User.IsInRole("Admin"))
+                            {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminPaciente" asp-action="Index">Pacientes</a>
                             </li>
-                            @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminDocumentosClinica" asp-action="Index">Documentos Clínica</a>
-                            </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminAgenda" asp-action="Index">Agenda</a>
-                            </li>*@
-                        }
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminDocumentoClinica" asp-action="Index">Documentos Clínica</a>
+                            </li>
+                                @*<li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminDocumentosClinica" asp-action="Index">Documentos Clínica</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminAgenda" asp-action="Index">Agenda</a>
+                        </li>*@
+                            }
 
-                        @await Html.PartialAsync("_LoginPartial")
+                            @await Html.PartialAsync("_LoginPartial")
 
                     </ul>
                 </div>

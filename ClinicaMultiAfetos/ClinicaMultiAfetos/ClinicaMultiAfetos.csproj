@@ -25,6 +25,10 @@
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="TagHelpers\" />
+    <Folder Include="wwwroot\doctos\documentos_clinica\" />
+    <Folder Include="wwwroot\doctos\documentos_paciente\" />
+    <Folder Include="wwwroot\doctos\" />
+    <Folder Include="wwwroot\doctos\recibos_paciente\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
