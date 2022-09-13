@@ -71,6 +71,9 @@ namespace ClinicaMultiAfetos.Models
         [Display(Name = "UF")]
         public string EnderecoUf { get; set; }
 
+        [StringLength(40, ErrorMessage = "O tamanho máximo é 40 caracteres.")]
+        [Display(Name = "Dados adicionais")]
+        public string DadosAdicionais { get; set; }
         public List<ReciboPaciente> RecibosPaciente { get; set; }
         public List<PlanoPaciente> PlanosPaciente { get; set; }
         public List<DocumentoPaciente> DocumentosPaciente { get; set; }
