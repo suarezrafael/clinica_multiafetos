@@ -22,6 +22,11 @@
             </td>
             <td align="right">
                 <img src="@item.DocumentoUrl" class="img-fluid" height="100" width="100">
+                <div style="padding:10px;text-align:left">
+                    <a href="@item.DocumentoUrl" target="_blank">Abrir</a>
+                    <a href="@Url.Action("Deletefile","AdminPaciente",new { fname=item.DocumentoUrl})">Excluir</a>
+                    
+                </div>
             </td>
             
             
