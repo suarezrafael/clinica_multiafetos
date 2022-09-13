@@ -23,21 +23,6 @@ namespace ClinicaMultiAfetos.Controllers
             return View();
         }
 
-        public IActionResult Agenda()
-        {
-            return View();
-        }
-
-        public IActionResult Pacientes()
-        {
-            return View();
-        }
-
-        public IActionResult Documentos()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
