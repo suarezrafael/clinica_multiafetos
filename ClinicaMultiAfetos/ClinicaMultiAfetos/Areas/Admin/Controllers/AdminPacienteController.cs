@@ -10,6 +10,7 @@ using ClinicaMultiAfetos.Models;
 using Microsoft.AspNetCore.Authorization;
 using ReflectionIT.Mvc.Paging;
 using ClinicaMultiAfetos.ViewModels;
+using Microsoft.Extensions.Options;
 
 namespace ClinicaMultiAfetos.Areas.Admin.Controllers
 {
@@ -18,17 +19,22 @@ namespace ClinicaMultiAfetos.Areas.Admin.Controllers
     public class AdminPacienteController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly ConfigurationDocumentosClinica _myConfig;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public AdminPacienteController(AppDbContext context)
+        public AdminPacienteController(AppDbContext context,
+            IOptions<ConfigurationDocumentosClinica> myConfig,
+            IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
+            _myConfig = myConfig.Value;
+            _hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult PacienteDocumentos(int? id)
+        public IActionResult PacienteDocumentos(int? id, string mensagem)
         {
             var paciente = _context.Pacientes
                          .Include(pd => pd.DocumentosPaciente)
-                   
                          .FirstOrDefault(p => p.PacienteId == id);
 
             if (paciente == null)
@@ -37,12 +43,85 @@ namespace ClinicaMultiAfetos.Areas.Admin.Controllers
                 return View("PedidoNotFound", id.Value);
             }
 
+            if (!string.IsNullOrEmpty(mensagem))
+            {
+                ViewBag.Mensagem = mensagem;
+            }
+
             PacienteViewModel pacienteDocumentos = new PacienteViewModel()
             {
                 Paciente = paciente,
                 DocumentosPaciente = paciente.DocumentosPaciente
             };
+
+
             return View(pacienteDocumentos);
+        }
+        public async Task<IActionResult> UploadFiles(int PacienteId, List<IFormFile> files)
+        {
+            string msg = "Arquivo enviado com sucesso.";
+
+            if (files == null || files.Count == 0)
+            {
+                //ViewData["Erro"] = "Error: Arquivo(s) não selecionado(s)";                
+                //return View(ViewData);
+                msg = "Error: Arquivo não selecionado.";
+                return RedirectToAction(nameof(PacienteDocumentos), new { id = PacienteId, mensagem = msg });
+            }
+
+            if (files.Count > 1)
+            {
+                //ViewData["Erro"] = "Error: Quantidade de arquivos excedeu o limite";
+                //return View(ViewData);
+                msg = "Error: Selecione somente um arquivo.";
+                return RedirectToAction(nameof(PacienteDocumentos), new { id = PacienteId, mensagem = msg });
+
+            }
+
+            long size = files.Sum(f => f.Length);
+            var filePathsName = new List<string>();
+            var filePathsNameWeb = new List<string>();
+            var fileNames = new List<string>();
+            var filePath = Path.Combine(_hostingEnvironment.WebRootPath,
+                   _myConfig.NomePastaDocumentosPaciente);
+
+            var filePathWeb = Path.Combine(_myConfig.UrlSiteMultiAfetos,
+                   _myConfig.NomePastaDocumentosPaciente);
+
+            foreach (var formFile in files)
+            {
+                if (formFile.FileName.Contains(".jpg") ||
+                    formFile.FileName.Contains(".gif") ||
+                    formFile.FileName.Contains(".png") ||
+                    formFile.FileName.Contains(".pdf") ||
+                    formFile.FileName.Contains(".docx") ||
+                    formFile.FileName.Contains(".doc"))
+                {
+                    var fileNameWithPath = string.Concat(filePath, "\\", formFile.FileName);
+                    var fileNameWithPathWeb = string.Concat(filePathWeb, "\\", formFile.FileName);
+
+                    filePathsName.Add(fileNameWithPath);
+                    filePathsNameWeb.Add(fileNameWithPathWeb);
+
+                    fileNames.Add(formFile.FileName);
+
+                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+            }
+            // inserir registro na tabela
+            DocumentoPaciente documentoPaciente = new DocumentoPaciente { 
+                PacienteId = PacienteId,
+                NomeArquivo = fileNames.First(),
+                DocumentoUrl = filePathsNameWeb.First()
+            };
+
+            _context.Add(documentoPaciente);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(PacienteDocumentos), new { id = PacienteId, mensagem = msg });
         }
 
         // GET: Admin/AdminPaciente
@@ -54,10 +133,16 @@ namespace ClinicaMultiAfetos.Areas.Admin.Controllers
 
             if (!string.IsNullOrWhiteSpace(filter))
             {
-                resultado = resultado.Where(p => p.NomeCompleto.Contains(filter));
+                resultado = resultado
+                    .Where(p => p.NomeCompleto.Contains(filter) || 
+                                p.PacienteId.ToString().Contains(filter) ||
+                                p.Cpf.Contains(filter)||
+                                p.TelefoneContato.Contains(filter)
+                                
+                                );
             }
 
-            var model = await PagingList.CreateAsync(resultado, 3, pageindex, sort, "NomeCompleto");
+            var model = await PagingList.CreateAsync(resultado, 4, pageindex, sort, "NomeCompleto");
             model.RouteValue = new RouteValueDictionary { { "filter", filter } };
 
             return View(model);

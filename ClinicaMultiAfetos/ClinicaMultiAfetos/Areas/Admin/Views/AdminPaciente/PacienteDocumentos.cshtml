@@ -31,7 +31,7 @@
     </dd>
 </dl>
 
-<form method="post" enctype="multipart/form-data" asp-controller="AdminDocumentoClinica" asp-action="UploadFiles">
+<form method="post" enctype="multipart/form-data" asp-controller="AdminPaciente" asp-action="UploadFiles">
 
     <hr />
     <div class="row">
@@ -39,6 +39,7 @@
             <b>Enviar novo arquivo :</b>
         </div>
         <div class="col-9">
+            <input type="hidden" value="@Html.DisplayFor(model => @Model.Paciente.PacienteId)" id="PacienteId" name="PacienteId" />
             <input type="file" name="files" multiple class="button btn-outline-primary" />
         </div>
         <div class="col-2">
@@ -49,6 +50,17 @@
 
 
 
+    @if (ViewBag.Mensagem != null)
+    {
+        <br />
+        <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 col-xxl-2">
+            <div class="alert alert-secondary" role="alert">
+                
+                @ViewBag.Mensagem
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    }
 </form>
 
 <hr />
