@@ -57,6 +57,7 @@ namespace ClinicaMultiAfetos.Areas.Admin.Controllers
 
             return View(pacienteDocumentos);
         }
+        // POST: Admin/AdminPaciente
         public async Task<IActionResult> UploadFiles(int PacienteId, List<IFormFile> files)
         {
             string msg = "Arquivo enviado com sucesso.";
@@ -122,6 +123,40 @@ namespace ClinicaMultiAfetos.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(PacienteDocumentos), new { id = PacienteId, mensagem = msg });
+        }
+
+        public async Task<IActionResult> Deletefile(int documentoPacienteId, string fname)
+        {
+            string _imagemDeleta = Path.Combine(_hostingEnvironment.WebRootPath,
+                _myConfig.NomePastaDocumentosPaciente + "\\", fname);
+
+            var pacienteId = 0;
+
+            string msg = "";
+
+            if ((System.IO.File.Exists(_imagemDeleta)))
+            {
+                System.IO.File.Delete(_imagemDeleta);
+
+                if (_context.Pacientes == null)
+                {
+                    return Problem("Entity set 'AppDbContext.DocumentosPaciente'  is null.");
+                }
+                var documentoPaciente = await _context.DocumentosPaciente.FindAsync(documentoPacienteId);
+                
+                if (documentoPaciente != null)
+                {
+                    pacienteId = documentoPaciente.PacienteId;
+
+                    _context.DocumentosPaciente.Remove(documentoPaciente);
+                }
+
+                await _context.SaveChangesAsync();
+
+                msg = "Arquivo excluído.";
+                
+            }
+            return RedirectToAction(nameof(PacienteDocumentos), new { id = pacienteId, mensagem = msg });
         }
 
         // GET: Admin/AdminPaciente

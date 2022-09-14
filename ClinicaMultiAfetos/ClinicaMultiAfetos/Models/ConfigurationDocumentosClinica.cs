@@ -6,7 +6,5 @@
         public string NomePastaDocumentosPaciente { get; set; }
         public string NomePastaRecibosPaciente { get; set; }
         public string UrlSiteMultiAfetos { get; set; }
-
-        
     }
 }

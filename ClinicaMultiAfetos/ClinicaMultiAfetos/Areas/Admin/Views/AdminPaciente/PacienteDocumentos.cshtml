@@ -53,7 +53,7 @@
     @if (ViewBag.Mensagem != null)
     {
         <br />
-        <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 col-xxl-2">
+        <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-4 col-xxl-2">
             <div class="alert alert-secondary" role="alert">
                 
                 @ViewBag.Mensagem
@@ -85,12 +85,10 @@
                 </td>
                 <td>
                     <a href="@item.DocumentoUrl" target="_blank">Abrir</a>
-                    <a href="@Url.Action("Deletefile","AdminPaciente",new { fname=item.DocumentoUrl})">Excluir</a>
+                    <a href="@Url.Action("Deletefile","AdminPaciente",new { item.DocumentoPacienteId, fname=item.NomeArquivo})">Excluir</a>
                 </td>
-
                 <td>
                     @* <img src="@item.DocumentoUrl" class="img-fluid" height="100" width="100">*@
-
                 </td>
 
             </tr>
