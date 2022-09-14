@@ -32,31 +32,44 @@
 </dl>
 
 <table class="table">
-    @foreach (var item in @Model.Paciente.DocumentosPaciente)
-    {
-        totalDocumentos += 1;
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeArquivo)
-            </td>
-            <td>
-                <a href="@item.DocumentoUrl" target="_blank">Abrir</a>
-                <a href="@Url.Action("Deletefile","AdminPaciente",new { fname=item.DocumentoUrl})">Excluir</a>
-            </td>
-
-            <td>
-                @* <img src="@item.DocumentoUrl" class="img-fluid" height="100" width="100">*@
-
-            </td>
-
+            <th>
+                Nome do Arquivo
+            </th>
+            <th>
+                Ações
+            </th>
         </tr>
-    }
-    <tr>
-        <td colspan="2">&nbsp;</td>
-        <td align="left">
-            Total Documentos : @string.Format("{0,10}", @totalDocumentos)
-        </td>
-    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Paciente.DocumentosPaciente)
+        {
+            totalDocumentos += 1;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeArquivo)
+                </td>
+                <td>
+                    <a href="@item.DocumentoUrl" target="_blank">Abrir</a>
+                    <a href="@Url.Action("Deletefile","AdminPaciente",new { fname=item.DocumentoUrl})">Excluir</a>
+                </td>
+
+                <td>
+                    @* <img src="@item.DocumentoUrl" class="img-fluid" height="100" width="100">*@
+
+                </td>
+
+            </tr>
+        }
+        <tr>
+            
+            <td align="left">
+                Total Documentos : @string.Format("{0,10}", @totalDocumentos)
+            </td>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+    </tbody>
 </table>
 <a asp-action="Index" class="btn btn-outline-info">Retornar</a>
 
