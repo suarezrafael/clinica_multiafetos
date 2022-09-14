@@ -5,38 +5,57 @@
     decimal totalDocumentos = 0;
 }
 
-<h1>DOCUMENTOS do Paciente</h1>
+<h2>DOCUMENTOS do Paciente</h2>
 <hr />
 
-<h3>Código        :  @Html.DisplayFor(model => @Model.Paciente.PacienteId)</h3>
-<h3>Nome Completo :  @Html.DisplayFor(model => @Model.Paciente.NomeCompleto)</h3>
-<h3>Data Nasc.    :  @Html.DisplayFor(model => @Model.Paciente.DataNascimento)</h3>
+<dl class="row">
+    <dt class="col-sm-2">
+        <b>Código        : </b>
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => @Model.Paciente.PacienteId)
+    </dd>
+
+    <dt class="col-sm-2">
+        <b>Nome Completo : </b>
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => @Model.Paciente.NomeCompleto)
+    </dd>
+
+    <dt class="col-sm-2">
+        <b>Data Nasc.    : </b>
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => @Model.Paciente.DataNascimento)
+    </dd>
+</dl>
 
 <table class="table">
     @foreach (var item in @Model.Paciente.DocumentosPaciente)
     {
         totalDocumentos += 1;
         <tr>
-            <td align="right">
-                <h3>@Html.DisplayFor(modelItem => item.NomeArquivo)</h3>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeArquivo)
             </td>
-            <td align="right">
-                <img src="@item.DocumentoUrl" class="img-fluid" height="100" width="100">
-                <div style="padding:10px;text-align:left">
-                    <a href="@item.DocumentoUrl" target="_blank">Abrir</a>
-                    <a href="@Url.Action("Deletefile","AdminPaciente",new { fname=item.DocumentoUrl})">Excluir</a>
-                    
-                </div>
+            <td>
+                <a href="@item.DocumentoUrl" target="_blank">Abrir</a>
+                <a href="@Url.Action("Deletefile","AdminPaciente",new { fname=item.DocumentoUrl})">Excluir</a>
             </td>
-            
-            
+
+            <td>
+                @* <img src="@item.DocumentoUrl" class="img-fluid" height="100" width="100">*@
+
+            </td>
+
         </tr>
     }
     <tr>
-            <td colspan="2">&nbsp;</td>
-            <td align="right">
-                <h3>Total Documentos : @string.Format("{0,10}", @totalDocumentos)</h3>
-            </td>
+        <td colspan="2">&nbsp;</td>
+        <td align="left">
+            Total Documentos : @string.Format("{0,10}", @totalDocumentos)
+        </td>
     </tr>
 </table>
 <a asp-action="Index" class="btn btn-outline-info">Retornar</a>
