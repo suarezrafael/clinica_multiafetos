@@ -6,16 +6,25 @@
 <h3>Pacientes</h3>
 
 <form method="get" class="form-inline">
+    <div class="row">
 
-    <input name="filter" class="form-control" placeholder="filtro"
-           value="@Model.RouteValue["Filter"]" />
+        <div class="col-9">
+            <input name="filter" class="form-control" placeholder="filtro"
+                   value="@Model.RouteValue["Filter"]" />
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn btn-info">Procurar</button>
+        </div>
 
-    <button type="submit" class="btn btn-info">Procurar</button>
+    </div>
 </form>
+</br>
+<div class="row">
 
-<p>
-    <a asp-action="Create">Novo Paciente</a>
-</p>
+    <div class="col-md-3">
+        <a asp-action="Create">Novo Paciente</a>
+    </div>
+</div>
 
 <table class="table">
     <thead>
@@ -30,7 +39,7 @@
             @Html.DisplayNameFor(model => model.Rg)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataNascimento)
+            @Html.DisplayNameFor(model => model.DataNascimento)
             </th>
             *@
             @*<th>
@@ -43,11 +52,11 @@
             @Html.DisplayNameFor(model => model.QueixaInicial)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Responsavel)
+            @Html.DisplayNameFor(model => model.Responsavel)
             </th>
-            
+
             <th>
-                @Html.DisplayNameFor(model => model.PaiMae)
+            @Html.DisplayNameFor(model => model.PaiMae)
             </th>
             *@
             <th>
@@ -85,10 +94,10 @@
                 @*                <td>
             @Html.DisplayFor(modelItem => item.Rg)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataNascimento)
-                </td>
-                *@
+            <td>
+            @Html.DisplayFor(modelItem => item.DataNascimento)
+            </td>
+            *@
                 @* <td>
             @Html.DisplayFor(modelItem => item.Cid)
             </td>
@@ -98,13 +107,13 @@
             <td>
             @Html.DisplayFor(modelItem => item.QueixaInicial)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Responsavel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PaiMae)
-                </td>
-                *@
+            <td>
+            @Html.DisplayFor(modelItem => item.Responsavel)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.PaiMae)
+            </td>
+            *@
                 <td>
                     @Html.DisplayFor(modelItem => item.TelefoneContato)
                 </td>
